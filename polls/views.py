@@ -1,12 +1,17 @@
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
 from django.views.generic import ListView, DetailView
 from .models import Question, Choice
 
 
 class IndexView(ListView):
     model = Question
+
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
 
 class QuestionDetailView(DetailView):
