@@ -11,16 +11,15 @@ class IndexView(ListView):
     model = Question
 
     def get_queryset(self):
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+        return Question.objects.filter(
+            pub_date__lte=timezone.now(),
+        ).exclude(choice=None).order_by('-pub_date')[:10]
 
 
 class QuestionDetailView(DetailView):
     model = Question
 
     def get_queryset(self):
-        """
-        Excludes any questions that aren't published yet.
-        """
         return Question.objects.filter(pub_date__lte=timezone.now())
 
 
