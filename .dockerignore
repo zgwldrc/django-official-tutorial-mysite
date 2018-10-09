@@ -1,0 +1,5 @@
+.python_modules
+.vscode
+Dockerfile
+docker-compose.yml
+README.md
